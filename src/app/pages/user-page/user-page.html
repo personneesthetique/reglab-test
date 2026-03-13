@@ -1,0 +1,19 @@
+<div class="user-page">
+  <aside class="user-page__sidebar">
+    <app-user-bar
+      class="user-page__user-bar"
+      [username]="username()"
+      (logOutButtonClicked)="logOut()"
+    />
+
+    <app-channels class="user-page__channels" />
+  </aside>
+
+  <main class="user-page__main">
+    @if (selectedChannelId()) {
+      <app-chat class="user-page__chat" />
+    } @else {
+      <p class="user-page__main__empty">Выберите, кому хотите написать</p>
+    }
+  </main>
+</div>

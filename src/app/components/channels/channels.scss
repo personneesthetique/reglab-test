@@ -1,0 +1,44 @@
+.channels {
+  &__section {
+    margin-bottom: 25px;
+  }
+
+  &__title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    margin-bottom: 8px;
+  }
+
+  &__item {
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #333;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #e9e9e9;
+    }
+
+    &--direct {
+      font-weight: 500;
+    }
+  }
+
+  &__add-btn {
+    margin-top: 8px;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background: #f2c94c;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #e6b93e;
+    }
+  }
+}

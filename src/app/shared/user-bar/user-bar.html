@@ -1,0 +1,22 @@
+<div class="profile">
+  <div class="profile__info">
+    <h2 class="profile__username">{{ username() }}</h2>
+    <span class="profile__label">ЭТО ВЫ!</span>
+  </div>
+
+  <div class="profile__actions">
+    <button
+      class="profile__btn profile__btn--settings"
+      (click)="settingsButtonClicked.emit()"
+    >
+      ⚙
+    </button>
+
+    <button
+      class="profile__btn profile__btn--logout"
+      (click)="logOutButtonClicked.emit()"
+    >
+      ⎋
+    </button>
+  </div>
+</div>

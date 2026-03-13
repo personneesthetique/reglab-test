@@ -1,0 +1,25 @@
+<div class="chat">
+  <div class="chat__header">
+    {{ selectedChannel()?.type === 'channel' ? '#' : '' }}
+    {{ selectedChannel()?.name }}
+  </div>
+
+  <div class="chat__messages">
+    @for (message of messages(); track $index) {
+      <div class="chat__message">
+        <span class="chat__message-user">{{ message.fromUser }}</span>
+        <div class="chat__message-content">{{ message.content }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="chat__input-area">
+    <input #input class="chat__input" type="text" placeholder="Пишите..." />
+    <button
+      class="chat__send-btn"
+      (click)="sendMessage(input.value); input.value = ''"
+    >
+      ➜
+    </button>
+  </div>
+</div>

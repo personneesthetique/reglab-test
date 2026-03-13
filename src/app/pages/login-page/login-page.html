@@ -1,0 +1,28 @@
+<div class="login">
+  <div class="login__container">
+    <div class="login__card">
+      <h2 class="login__title">Вход в систему</h2>
+      <form class="login__form-group" [formGroup]="loginForm">
+        <input
+          formControlName="username"
+          class="login__input"
+          id="username"
+          type="text"
+          placeholder="Введите имя"
+        />
+
+        <input
+          formControlName="password"
+          class="login__input"
+          id="password"
+          type="password"
+          placeholder="Введите пароль"
+        />
+      </form>
+
+      <button class="login__btn" (click)="login()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<p-toast />

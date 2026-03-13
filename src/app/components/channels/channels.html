@@ -1,0 +1,31 @@
+<div class="channels">
+  @let channels = channelsApi.userChannels().channels;
+  @let directChats = channelsApi.userChannels().directChats;
+
+  <div class="channels__section">
+    <div class="channels__title">КАНАЛЫ</div>
+
+    @for (channel of channels; track channel.id) {
+      <div class="channels__item" (click)="selectChannel(channel.id)">
+        # {{ channel.name }}
+      </div>
+    }
+
+    <button class="channels__add-btn">+ Добавить каналы</button>
+  </div>
+
+  <div class="channels__section">
+    <div class="channels__title">КОНТАКТЫ</div>
+
+    @for (chat of directChats; track chat.id) {
+      <div
+        class="channels__item channels__item--direct"
+        (click)="selectChannel(chat.id)"
+      >
+        {{ chat.name }}
+      </div>
+    }
+
+    <button class="channels__add-btn">+ Добавить контакт</button>
+  </div>
+</div>
