@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectSelectedChannel } from '../../store/selectors/channels.selectors';
 import { changeChannel } from '../../store/actions/channels.actions';
+import { UsersApi } from '../../api';
 
 @Component({
   selector: 'app-channels',
@@ -14,6 +15,7 @@ import { changeChannel } from '../../store/actions/channels.actions';
 })
 export class Channels {
   readonly channelsApi = inject(ChannelsApi);
+  readonly usersApi = inject(UsersApi);
   readonly store = inject(Store);
 
   readonly selectedChannel = this.store.selectSignal(selectSelectedChannel);

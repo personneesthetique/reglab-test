@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { UserCredentials } from '../models';
-import { of, throwError } from 'rxjs';
+import { of, switchMap, throwError } from 'rxjs';
 import { UsersApi } from './users-api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Auth {
-  private readonly usersApi = inject(UsersApi);
+export class AuthApi {
+  readonly usersApi = inject(UsersApi);
 
   logIn(credentials: UserCredentials) {
     const user = this.usersApi
@@ -18,8 +18,10 @@ export class Auth {
           password === credentials.password,
       );
 
-    if (!user) return throwError(() => new Error('Auth Error'));
-
-    return of(user);
+    return of(user).pipe(
+      switchMap((foundUser) =>
+        foundUser ? of(foundUser) : throwError(() => new Error('Auth Error')),
+      ),
+    );
   }
 }

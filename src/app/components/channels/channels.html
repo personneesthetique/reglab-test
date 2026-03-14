@@ -22,6 +22,12 @@
         class="channels__item channels__item--direct"
         (click)="selectChannel(chat.id)"
       >
+        <span
+          class="channels__status-dot"
+          [class.channels__status-dot--online]="chat.isOnline"
+          [class.channels__status-dot--offline]="!chat.isOnline"
+        ></span>
+
         {{ chat.name }}
       </div>
     }

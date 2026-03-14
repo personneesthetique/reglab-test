@@ -14,6 +14,9 @@ export const logInUserError = createAction(
   '[Auth] Log In User Error',
   props<{ error: string }>(),
 );
-export const logOutUser = createAction('[Auth] Log Out User');
+export const logOutUser = createAction(
+  '[Auth] Log Out User',
+  props<{ userId: string }>(),
+);
 
 export const checkAuth = createAction('[Auth] Check Auth');

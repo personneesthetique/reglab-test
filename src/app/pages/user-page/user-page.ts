@@ -3,7 +3,10 @@ import { Channels, Chat } from '../../components';
 import { UserBar } from '../../shared';
 import { Store } from '@ngrx/store';
 import { logOutUser } from '../../store/actions/auth.actions';
-import { selectUsername } from '../../store/selectors/auth.selectors';
+import {
+  selectUser,
+  selectUsername,
+} from '../../store/selectors/auth.selectors';
 import { selectSelectedChannel } from '../../store/selectors/channels.selectors';
 import { loadMessages } from '../../store/actions/chats.actions';
 
@@ -17,7 +20,7 @@ import { loadMessages } from '../../store/actions/chats.actions';
 export class UserPage {
   readonly store = inject(Store);
 
-  protected username = this.store.selectSignal(selectUsername);
+  protected user = this.store.selectSignal(selectUser);
   protected selectedChannelId = this.store.selectSignal(selectSelectedChannel);
 
   constructor() {
@@ -25,6 +28,6 @@ export class UserPage {
   }
 
   logOut() {
-    this.store.dispatch(logOutUser());
+    this.store.dispatch(logOutUser({ userId: this.user()!.id }));
   }
 }

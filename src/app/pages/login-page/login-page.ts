@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from '../../api/auth-api';
+import { AuthApi } from '../../api/auth-api';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { logInUser, logInUserError } from '../../store/actions/auth.actions';
@@ -21,7 +21,7 @@ import { MessageService } from 'primeng/api';
 })
 export class LoginPage {
   readonly fb = inject(FormBuilder);
-  readonly auth = inject(Auth);
+  readonly authApi = inject(AuthApi);
   readonly store = inject(Store);
   readonly messageService = inject(MessageService);
 

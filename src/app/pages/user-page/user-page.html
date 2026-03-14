@@ -2,7 +2,7 @@
   <aside class="user-page__sidebar">
     <app-user-bar
       class="user-page__user-bar"
-      [username]="username()"
+      [username]="user()?.username"
       (logOutButtonClicked)="logOut()"
     />
 

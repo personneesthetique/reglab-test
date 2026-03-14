@@ -27,6 +27,8 @@ export const SESSION_STORAGE = new InjectionToken<typeof sessionStorage>(
 );
 export const SOCKET = new InjectionToken<BroadcastChannel>('socket');
 
+export const POLLING_INTERVAL = new InjectionToken<number>('polling');
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -54,6 +56,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: SOCKET,
       useValue: new BroadcastChannel(SOCKET_NAME),
+    },
+    {
+      provide: POLLING_INTERVAL,
+      useValue: 200,
     },
   ],
 };

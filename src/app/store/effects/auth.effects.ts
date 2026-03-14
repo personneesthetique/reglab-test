@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError, of, tap } from 'rxjs';
-import { Auth } from '../../api';
+import { AuthApi, UsersApi } from '../../api';
 import { Router } from '@angular/router';
 import {
   logInUser,
@@ -19,10 +19,11 @@ import { SESSION_STORAGE } from '../../app.config';
 })
 export class AuthEffects {
   private actions$ = inject(Actions);
-  private auth = inject(Auth);
+  private authApi = inject(AuthApi);
   private router = inject(Router);
   private store = inject(Store);
   private sessionStorage = inject(SESSION_STORAGE);
+  private usersApi = inject(UsersApi);
 
   readonly USER_KEY = 'user';
 
@@ -30,8 +31,10 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(logInUser),
       switchMap(({ username, password }) =>
-        this.auth.logIn({ username, password }).pipe(
-          map((user) => logInUserSuccess({ user })),
+        this.authApi.logIn({ username, password }).pipe(
+          map((user) =>
+            logInUserSuccess({ user: { ...user, isOnline: true } }),
+          ),
           catchError((error) => of(logInUserError(error))),
         ),
       ),
@@ -42,9 +45,10 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(logInUserSuccess),
-        tap(({ user }) =>
-          this.sessionStorage.setItem(this.USER_KEY, JSON.stringify(user)),
-        ),
+        tap(({ user }) => {
+          this.usersApi.updateUserStatus(user.id, true);
+          this.sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
+        }),
       ),
     { dispatch: false },
   );
@@ -62,7 +66,8 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(logOutUser),
-        tap(() => {
+        tap(({ userId }) => {
+          this.usersApi.updateUserStatus(userId, false);
           this.sessionStorage.removeItem(this.USER_KEY);
           this.router.navigate(['']);
           this.store.dispatch(changeChannel({ channel: null }));
@@ -75,7 +80,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(checkAuth),
       map(() => {
-        const storedUser = this.sessionStorage.getItem(this.USER_KEY);
+        const storedUser = sessionStorage.getItem(this.USER_KEY);
 
         if (!storedUser) return logInUserError({ error: 'No session' });
 
