@@ -43,7 +43,7 @@ export class ChannelsApi {
     const username = this.username();
     const polling = this.polling();
 
-    if (!username) return { channels: [], directChats: [] };
+    if (!username || !polling) return { channels: [], directChats: [] };
 
     return this.getUserChannels(username);
   });
