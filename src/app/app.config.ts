@@ -15,7 +15,7 @@ import { AuthEffects } from './store/effects/auth.effects';
 import { ChatsEffects } from './store/effects/chats.effects';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/Aura';
+import Aura from '@primeuix/themes/aura';
 
 export const SOCKET_NAME = 'socket';
 
