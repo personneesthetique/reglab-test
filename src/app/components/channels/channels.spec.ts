@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { Channels } from './channels';
+import { LOCAL_STORAGE, POLLING_INTERVAL } from '../../app.config';
 
 describe('Channels', () => {
   let component: Channels;
@@ -26,6 +27,19 @@ describe('Channels', () => {
             },
           },
         }),
+        {
+          provide: POLLING_INTERVAL,
+          useValue: () => {},
+        },
+        {
+          provide: LOCAL_STORAGE,
+          useValue: {
+            getItem: () => null,
+            setItem: () => {},
+            removeItem: () => {},
+            clear: () => {},
+          },
+        },
       ],
     }).compileComponents();
 
