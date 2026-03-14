@@ -23,7 +23,7 @@ export class LoginPage {
   readonly fb = inject(FormBuilder);
   readonly auth = inject(Auth);
   readonly store = inject(Store);
-  private messageService = inject(MessageService);
+  readonly messageService = inject(MessageService);
 
   protected loginForm = this.fb.nonNullable.group({
     username: ['', [Validators.required]],
@@ -33,7 +33,9 @@ export class LoginPage {
   logInUserErrorSelect = this.store.selectSignal(logInUserError);
 
   logInUserErrorEffect = effect(() => {
-    const logInUserError = this.logInUserErrorSelect();
+    const error = this.logInUserErrorSelect();
+
+    if (!error) return;
 
     this.messageService.add({
       severity: 'error',
