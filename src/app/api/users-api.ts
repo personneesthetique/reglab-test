@@ -1,8 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE } from '../app.config';
-import { User, UserCredentials } from '../models';
-import { interval, map } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { User } from '../models';
 
 @Injectable({
   providedIn: 'root',

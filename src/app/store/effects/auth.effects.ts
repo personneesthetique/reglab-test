@@ -47,6 +47,7 @@ export class AuthEffects {
         ofType(logInUserSuccess),
         tap(({ user }) => {
           this.usersApi.updateUserStatus(user.id, true);
+
           this.sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
         }),
       ),
@@ -68,8 +69,11 @@ export class AuthEffects {
         ofType(logOutUser),
         tap(({ userId }) => {
           this.usersApi.updateUserStatus(userId, false);
+
           this.sessionStorage.removeItem(this.USER_KEY);
+
           this.router.navigate(['']);
+
           this.store.dispatch(changeChannel({ channel: null }));
         }),
       ),
@@ -85,6 +89,7 @@ export class AuthEffects {
         if (!storedUser) return logInUserError({ error: 'No session' });
 
         const user = JSON.parse(storedUser);
+
         return logInUserSuccess({ user });
       }),
     ),

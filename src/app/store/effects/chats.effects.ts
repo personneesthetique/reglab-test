@@ -77,6 +77,7 @@ export class ChatsEffects {
       ofType(loadMessages),
       switchMap(() => {
         const stored = this.localStorage.getItem(this.MESSAGES_KEY);
+
         if (!stored) throw new Error('No messages');
 
         const messages = JSON.parse(stored);

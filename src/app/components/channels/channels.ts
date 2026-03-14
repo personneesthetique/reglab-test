@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ChannelsApi } from '../../api/channels-api';
-import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectSelectedChannel } from '../../store/selectors/channels.selectors';
 import { changeChannel } from '../../store/actions/channels.actions';
@@ -8,7 +7,7 @@ import { UsersApi } from '../../api';
 
 @Component({
   selector: 'app-channels',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './channels.html',
   styleUrl: './channels.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,12 +17,15 @@ export class Channels {
   readonly usersApi = inject(UsersApi);
   readonly store = inject(Store);
 
-  readonly selectedChannel = this.store.selectSignal(selectSelectedChannel);
+  protected readonly selectedChannel = this.store.selectSignal(
+    selectSelectedChannel,
+  );
 
   selectChannel(channelId: string) {
     if (!channelId) return;
 
     const { channels, directChats } = this.channelsApi.userChannels();
+
     const channel = [...channels, ...directChats].find(
       (c) => c.id === channelId,
     );
