@@ -1,4 +1,4 @@
-# Angular Application
+# Reglab Test
 
 ## Запуск приложения
 
